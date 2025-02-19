@@ -3,19 +3,29 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:user_todo/screens/splash_screen.dart';
-import 'package:connectivity_plus/connectivity_plus.dart'; // Import connectivity package
 import 'package:user_todo/auths/connectivity_plus.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: FirebaseOptions(
-        apiKey: 'AIzaSyD4-1mYYdWFtuMKLG8ofs5a3C-xgwLaqBw',
-        appId: '1:58816975422:android:2ac87b83fa5bc4c138f76f',
-        messagingSenderId: '58816975422',
-        projectId: 'todo-list-387f6'),
-  );
-  runApp(MyApp());
+
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyBJlELeZ_tp1PDdW13La4KWliStBLb_0N4",
+          authDomain: "todo-list-387f6.firebaseapp.com",
+          projectId: "todo-list-387f6",
+          storageBucket: "todo-list-387f6.firebasestorage.app",
+          messagingSenderId: "58816975422",
+          appId: "1:58816975422:web:6461f856b557ecf538f76f",
+          measurementId: "G-T4KSBGSTDR"),
+    );
+  } else {
+    // Mobile Firebase Initialization
+    await Firebase.initializeApp();
+  }
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +40,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           textButtonTheme: TextButtonThemeData(
             style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(Colors.blueAccent),
+              foregroundColor: WidgetStateProperty.all(Colors.blueAccent),
             ),
           ),
           textSelectionTheme: const TextSelectionThemeData(

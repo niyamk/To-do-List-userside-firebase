@@ -1,10 +1,17 @@
 {
   "hosting": {
+    "site": "todo-list-387f6-c0506",
     "public": "build/web",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }
